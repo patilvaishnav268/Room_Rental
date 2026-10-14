@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UrbanNest Pune — Modern Room Rentals & Flatshare in Pune</title>
+  <meta name="description" content="Discover verified room rentals, studios, and flatshares across Pune's top neighborhoods — Koregaon Park, Baner, Viman Nagar, Hinjawadi, Kalyani Nagar & more with zero brokerage." />
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%3E<text y=%2226%22 font-size=%2226%22>🏡</text></svg>">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Background Ambient Glowing Orbs -->
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="ambient-orb ambient-orb-1"></div>
+    <div class="ambient-orb ambient-orb-2"></div>
+    <div class="ambient-orb ambient-orb-3"></div>
+  </div>
+
+  <!-- Canvas for Confetti Particle Explosions -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Sticky Glassmorphic Navbar -->
+  <header class="navbar-wrapper">
+    <div class="navbar-container">
+      <!-- Brand Logo -->
+      <a href="#" class="brand-logo" aria-label="UrbanNest Pune Home">
+        <div class="logo-badge">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <div class="logo-text">Urban<span>Nest</span> <small style="font-size: 0.65em; font-weight: 600; opacity: 0.8; color: var(--primary);">Pune</small></div>
+      </a>
+
+      <!-- Quick Search Input -->
+      <div class="nav-search-pill">
+        <input type="text" id="nav-search-input" placeholder="Search Koregaon Park, Baner, Hinjawadi..." aria-label="Search rooms in Pune" />
+        <button class="nav-search-btn" id="nav-search-btn" aria-label="Execute search">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <!-- Currency Converter -->
+        <select id="currency-select" class="currency-select" aria-label="Select currency">
+          <option value="INR" selected>INR (₹)</option>
+          <option value="USD">USD ($)</option>
+          <option value="EUR">EUR (€)</option>
+          <option value="GBP">GBP (£)</option>
+        </select>
+
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="nav-btn-icon" aria-label="Toggle dark/light theme" title="Toggle theme">
+          <!-- Populated by JS -->
+        </button>
+
+        <!-- Wishlist Drawer Trigger -->
+        <button id="open-wishlist-btn" class="nav-btn-icon" aria-label="Open Wishlist" title="Saved Wishlist">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <span class="nav-badge" id="wishlist-badge">0</span>
+        </button>
+
+        <!-- "List Your Room" Button -->
+        <button id="open-list-modal-btn" class="btn-primary-gradient">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          <span>List Your Room</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <span>✨</span>
+          <span>Verified Rooms Across Pune's Top Localities</span>
+        </div>
+        <h1 class="hero-title">
+          Find Rooms in Pune That <br />
+          <span class="gradient-text">Feel Like Home</span>
+        </h1>
+        <p class="hero-subtitle">
+          Discover designer studios, quiet private bedrooms, and vibrant flatshares across Koregaon Park, Baner, Viman Nagar, Hinjawadi & more with zero brokerage.
+        </p>
+      </div>
+
+      <!-- Floating Animated Micro-Badges -->
+      <div class="hero-floating-badges" aria-hidden="true">
+        <div class="float-badge float-badge-1">
+          <div class="badge-icon-box icon-amber">⭐</div>
+          <div>
+            <div style="font-weight: 800; font-size: 0.95rem;">4.98 Rating</div>
+            <div style="font-size: 0.76rem; color: var(--text-muted);">From 12,500+ Punekars</div>
+          </div>
+        </div>
+
+        <div class="float-badge float-badge-2">
+          <div class="badge-icon-box icon-emerald">⚡</div>
+          <div>
+            <div style="font-weight: 800; font-size: 0.95rem;">Instant Book</div>
+            <div style="font-size: 0.76rem; color: var(--text-muted);">Keyless digital entry</div>
+          </div>
+        </div>
+
+        <div class="float-badge float-badge-3">
+          <div class="badge-icon-box icon-rose">🛡️</div>
+          <div>
+            <div style="font-weight: 800; font-size: 0.95rem;">100% Vetted</div>
+            <div style="font-size: 0.76rem; color: var(--text-muted);">ID & police verification</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Unified Search Card -->
+      <div class="search-card">
+        <!-- City Destination -->
+        <div class="search-field">
+          <label for="search-city">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Pune Locality
+          </label>
+          <select id="search-city" aria-label="Select Pune locality">
+            <!-- Populated by JS -->
+          </select>
+        </div>
+
+        <!-- Room Type -->
+        <div class="search-field">
+          <label for="search-type">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            Room Type
+          </label>
+          <select id="search-type" aria-label="Select room type">
+            <option value="all">Any Room Type</option>
+            <option value="studio">Entire Studio</option>
+            <option value="private">Private Bedroom</option>
+            <option value="shared">Shared Flat</option>
+            <option value="suite">Guest Suite / Villa</option>
+          </select>
+        </div>
+
+        <!-- Guests -->
+        <div class="search-field">
+          <label for="search-guests">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Guests
+          </label>
+          <select id="search-guests" aria-label="Select guests count">
+            <option value="1">1 Guest</option>
+            <option value="2">2 Guests</option>
+            <option value="3">3+ Guests</option>
+          </select>
+        </div>
+
+        <!-- Price Range Slider -->
+        <div class="search-field">
+          <label for="price-range-slider" style="display: flex; justify-content: space-between;">
+            <span>Max Price</span>
+            <span id="price-range-val" style="color: var(--primary); font-weight: 800;">$500</span>
+          </label>
+          <input type="range" id="price-range-slider" min="50" max="500" step="10" value="500" style="accent-color: var(--primary); cursor: pointer;" />
+        </div>
+
+        <!-- Search Action Button -->
+        <button id="main-search-btn" class="search-action-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span>Search</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Categories Filter & Sorting Track -->
+    <section class="category-section">
+      <div class="category-track" id="category-track">
+        <!-- Rendered dynamically via JS -->
+      </div>
+
+      <div class="filter-controls">
+        <select id="sort-select" class="sort-select" aria-label="Sort listings">
+          <option value="recommended">⭐ Recommended</option>
+          <option value="price-low">💰 Price: Low to High</option>
+          <option value="price-high">💎 Price: High to Low</option>
+          <option value="rating">🏆 Highest Rated</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Results Header -->
+    <section class="results-header">
+      <div class="results-count" id="results-count">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- Rooms Listings Grid -->
+    <section class="rooms-grid" id="rooms-grid">
+      <!-- Cards rendered dynamically via JS -->
+    </section>
+
+    <!-- Value Propositions / Highlights -->
+    <section style="max-width: 1360px; margin: 4rem auto; padding: 0 1.5rem;">
+      <div class="section-head">
+        <h2 class="section-title">Why Renters Love UrbanNest</h2>
+        <p class="section-subtitle">Designed to make finding your next home effortless, flexible, and inspiring.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+        <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-md); transition: transform 0.3s ease;">
+          <div style="width: 52px; height: 52px; border-radius: 14px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem;">
+            ⚡
+          </div>
+          <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem;">Instant Seamless Booking</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">No weeks of waiting for landlord approvals. Book instantly with smart digital ID verification and keyless arrival codes.</p>
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-md); transition: transform 0.3s ease;">
+          <div style="width: 52px; height: 52px; border-radius: 14px; background: var(--accent-emerald-light); color: var(--accent-emerald); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem;">
+            🛡️
+          </div>
+          <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem;">100% Verified Quality</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">Every room is vetted for cleanliness, high-speed WiFi speeds (>100 Mbps), and comfort before listing.</p>
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-md); transition: transform 0.3s ease;">
+          <div style="width: 52px; height: 52px; border-radius: 14px; background: var(--accent-rose-light); color: var(--accent-rose); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem;">
+            ✨
+          </div>
+          <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem;">Zero Hidden Surcharges</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">All utilities, high-speed internet, and regular maintenance are bundled upfront. What you see is what you pay.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials / Community Reviews -->
+    <section class="testimonials-section">
+      <div class="section-head">
+        <h2 class="section-title">Loved by 50,000+ Nomads & Renters</h2>
+        <p class="section-subtitle">Real experiences from people who found their sanctuary through UrbanNest.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div style="color: var(--accent-amber); margin-bottom: 0.75rem;">⭐⭐⭐⭐⭐</div>
+          <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6;">
+            "Found my dream room in Koregaon Park within 20 minutes of landing in Pune. The leafy balcony, fast WiFi, and walking distance to cafes was exactly as pictured!"
+          </p>
+          <div class="testimonial-author-row">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="testimonial-avatar" alt="Maya Lin" />
+            <div>
+              <div style="font-weight: 700; color: var(--text-primary);">Maya Lin</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">Product Designer • Koregaon Park, Pune</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div style="color: var(--accent-amber); margin-bottom: 0.75rem;">⭐⭐⭐⭐⭐</div>
+          <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6;">
+            "As a host, listing my Baner High Street studio was effortless. UrbanNest handles guest verification and security deposits smoothly. Filled my room in 3 days!"
+          </p>
+          <div class="testimonial-author-row">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" class="testimonial-avatar" alt="Sagar Kulkarni" />
+            <div>
+              <div style="font-weight: 700; color: var(--text-primary);">Sagar Kulkarni</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">Superhost • Baner, Pune</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div style="color: var(--accent-amber); margin-bottom: 0.75rem;">⭐⭐⭐⭐⭐</div>
+          <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6;">
+            "The Hinjawadi tech nomad room with the backup power generator was a lifesaver. Zero daily commute to Infosys campus and fiber internet for US client calls."
+          </p>
+          <div class="testimonial-author-row">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80" class="testimonial-avatar" alt="Neha Agarwal" />
+            <div>
+              <div style="font-weight: 700; color: var(--text-primary);">Neha Agarwal</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">Software Engineer • Hinjawadi, Pune</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Accordion -->
+    <section class="faq-section">
+      <div class="section-head">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Everything you need to know about booking and listing with UrbanNest.</p>
+      </div>
+
+      <div class="faq-item active">
+        <button class="faq-question">
+          <span>How does the booking & deposit process work?</span>
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          When you click "Reserve", your payment details are held securely in escrow. Your payment is only released to the host 24 hours after you successfully check in and verify the room meets all described specifications.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>What is the cancellation policy?</span>
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          Most rooms offer free cancellation up to 48 hours prior to your scheduled check-in time. Full refund details are always transparently presented before you confirm any reservation.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Are bills and high-speed utilities included?</span>
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          Yes! All rooms listed on UrbanNest include high-speed Wi-Fi, electricity, heating, water, and building maintenance fees with no unexpected monthly utility bills.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>How do I list my room as a host?</span>
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          Click the "List Your Room" button at the top of the page. Our 4-step wizard lets you enter your room specs, select amenities, and upload photos in under 2 minutes. Once submitted, your listing is live instantly!
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Detailed Room View Modal -->
+  <div class="modal-overlay" id="detail-modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-content-container">
+      <button class="modal-close-btn" aria-label="Close modal">✕</button>
+      <div id="detail-modal-body">
+        <!-- Rendered dynamically via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Success Confetti Modal -->
+  <div class="modal-overlay" id="success-modal-overlay" role="dialog" aria-modal="true">
+    <div class="success-modal-card">
+      <div class="success-icon-animated">
+        <svg class="success-checkmark" viewBox="0 0 24 24">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <h3 style="font-size: 1.6rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.5rem;">
+        Reservation Confirmed!
+      </h3>
+      <p style="color: var(--text-secondary); font-size: 0.95rem;">
+        Your reservation is locked in. The host has been notified and check-in instructions have been prepared.
+      </p>
+
+      <div id="success-booking-summary">
+        <!-- Summary rendered by JS -->
+      </div>
+
+      <button class="btn-primary-gradient" id="success-modal-close-btn" style="width: 100%; justify-content: center; padding: 0.9rem;">
+        Done & Explore More
+      </button>
+    </div>
+  </div>
+
+  <!-- "List Your Room" Multi-Step Modal -->
+  <div class="modal-overlay" id="list-room-modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-content-container" style="max-width: 650px; padding: 2rem;">
+      <button class="modal-close-btn" id="close-list-modal-btn" aria-label="Close modal">✕</button>
+
+      <div style="margin-bottom: 1.5rem;">
+        <span class="card-city">Host On UrbanNest</span>
+        <h2 style="font-size: 1.7rem; font-weight: 800; color: var(--text-primary);">List Your Room</h2>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">Start hosting guests from around the globe in a few easy steps.</p>
+      </div>
+
+      <!-- Step Progress Bar -->
+      <div class="wizard-progress">
+        <div class="wizard-step-dot active" id="wizard-dot-1"></div>
+        <div class="wizard-step-dot" id="wizard-dot-2"></div>
+        <div class="wizard-step-dot" id="wizard-dot-3"></div>
+        <div class="wizard-step-dot" id="wizard-dot-4"></div>
+      </div>
+
+      <!-- Step 1: Location & Category -->
+      <div id="wizard-step-1">
+        <div class="form-group">
+          <label for="wizard-title">Listing Title</label>
+          <input type="text" id="wizard-title" class="form-control" placeholder="e.g. Garden Studio in Koregaon Park" />
+        </div>
+        <div class="form-group">
+          <label for="wizard-city">Pune Locality</label>
+          <input type="text" id="wizard-city" class="form-control" placeholder="e.g. Koregaon Park, Baner, Viman Nagar..." />
+        </div>
+        <div class="form-group">
+          <label for="wizard-address">Neighborhood / Address</label>
+          <input type="text" id="wizard-address" class="form-control" placeholder="e.g. Lane 7, Koregaon Park, Pune" />
+        </div>
+        <div class="form-group">
+          <label for="wizard-category">Room Category</label>
+          <select id="wizard-category" class="form-control">
+            <option value="studio">Modern Studio</option>
+            <option value="private-room">Private Room</option>
+            <option value="shared">Shared Flat</option>
+            <option value="penthouse">Penthouse / Terrace Suite</option>
+            <option value="villa">Scenic Villa</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Step 2: Capacity & Rates -->
+      <div id="wizard-step-2" style="display: none;">
+        <div class="form-group">
+          <label for="wizard-price">Nightly Rate (USD equivalent, approx $15-$35)</label>
+          <input type="number" id="wizard-price" class="form-control" placeholder="e.g. 24 (approx ₹2,000)" min="10" />
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label for="wizard-guests">Max Guests</label>
+            <input type="number" id="wizard-guests" class="form-control" value="2" min="1" max="10" />
+          </div>
+          <div class="form-group">
+            <label for="wizard-bedrooms">Bedrooms</label>
+            <input type="number" id="wizard-bedrooms" class="form-control" value="1" min="1" />
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label for="wizard-baths">Bathrooms</label>
+            <input type="number" id="wizard-baths" class="form-control" value="1" step="0.5" min="0.5" />
+          </div>
+          <div class="form-group">
+            <label for="wizard-sqft">Approx Area (Sq Ft)</label>
+            <input type="number" id="wizard-sqft" class="form-control" value="450" min="100" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Amenities Selection -->
+      <div id="wizard-step-3" style="display: none;">
+        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 0.75rem;">Select all amenities available to the guest:</p>
+        <div class="amenity-toggle-grid">
+          <div class="amenity-toggle-item checked" data-amenity="High-speed WiFi">📶 High-speed WiFi</div>
+          <div class="amenity-toggle-item checked" data-amenity="Air Conditioning">❄️ Air Conditioning</div>
+          <div class="amenity-toggle-item checked" data-amenity="Chef's Kitchen">🍳 Modern Kitchen</div>
+          <div class="amenity-toggle-item checked" data-amenity="Dedicated Workspace">💻 Dedicated Desk</div>
+          <div class="amenity-toggle-item" data-amenity="Washer & Dryer">🧺 Washer in Unit</div>
+          <div class="amenity-toggle-item" data-amenity="Swimming Pool">🏊 Swimming Pool</div>
+          <div class="amenity-toggle-item" data-amenity="Private Balcony">🌿 Private Balcony</div>
+          <div class="amenity-toggle-item" data-amenity="Gym Access">🏋️ Fitness Center</div>
+        </div>
+      </div>
+
+      <!-- Step 4: Photo URL & Preview -->
+      <div id="wizard-step-4" style="display: none;">
+        <div class="form-group">
+          <label for="wizard-image-url">Photo Image URL (Unsplash or direct image URL)</label>
+          <input type="url" id="wizard-image-url" class="form-control" value="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80" />
+        </div>
+        <div style="border-radius: var(--radius-md); overflow: hidden; height: 200px; background: var(--bg-secondary); margin-top: 1rem;">
+          <img id="wizard-image-preview" src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80" style="width: 100%; height: 100%; object-fit: cover;" alt="Preview" />
+        </div>
+      </div>
+
+      <!-- Wizard Navigation Buttons -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
+        <button id="wizard-prev-btn" style="color: var(--text-secondary); font-weight: 700; padding: 0.6rem 1rem;">← Back</button>
+        <button id="wizard-next-btn" class="btn-primary-gradient">Next Step →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wishlist Slide-Over Drawer -->
+  <div class="drawer-overlay" id="wishlist-drawer-overlay">
+    <div class="wishlist-drawer">
+      <div class="drawer-header">
+        <h3 class="drawer-title">
+          <span>❤️</span>
+          <span>Saved Rooms</span>
+        </h3>
+        <button id="close-wishlist-btn" class="modal-close-btn" style="position: static;" aria-label="Close wishlist">✕</button>
+      </div>
+      <div class="drawer-body" id="wishlist-items-container">
+        <!-- Rendered dynamically via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="#" class="brand-logo" style="margin-bottom: 1rem;">
+          <div class="logo-badge">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            </svg>
+          </div>
+          <div class="logo-text">Urban<span>Nest</span></div>
+        </a>
+        <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; max-width: 320px;">
+          The modern platform connecting travelers, remote workers, and students with beautiful, verified room rentals worldwide.
+        </p>
+        <form class="newsletter-form" id="newsletter-form">
+          <input type="email" class="newsletter-input" placeholder="Your email address..." required aria-label="Email for newsletter" />
+          <button type="submit" class="btn-primary-gradient" style="padding: 0.6rem 1.1rem;">Subscribe</button>
+        </form>
+      </div>
+
+      <div class="footer-col">
+        <h4>Explore Pune Localities</h4>
+        <ul>
+          <li><a href="#koregaon-park">Koregaon Park Studios</a></li>
+          <li><a href="#baner">Baner High Street Flats</a></li>
+          <li><a href="#viman-nagar">Viman Nagar Rooms</a></li>
+          <li><a href="#hinjawadi">Hinjawadi IT Tech Suites</a></li>
+          <li><a href="#kalyani-nagar">Kalyani Nagar Penthouses</a></li>
+          <li><a href="#kothrud">Kothrud Heritage Rooms</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About UrbanNest</a></li>
+          <li><a href="#careers">Careers</a></li>
+          <li><a href="#press">Press & Media</a></li>
+          <li><a href="#trust">Trust & Safety Guarantee</a></li>
+          <li><a href="#contact">Contact Support</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Hosting</h4>
+        <ul>
+          <li><a href="#host">Why Host with Us</a></li>
+          <li><a href="#guidelines">Community Guidelines</a></li>
+          <li><a href="#protection">Host Protection Insurance</a></li>
+          <li><a href="#pricing">Smart Pricing Tools</a></li>
+          <li><a href="#faq">Host FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 UrbanNest Technologies Inc. All rights reserved.</div>
+      <div style="display: flex; gap: 1.5rem;">
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Service</a>
+        <a href="#cookies">Cookie Preferences</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Script -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>

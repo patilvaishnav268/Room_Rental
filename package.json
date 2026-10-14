@@ -1,0 +1,11 @@
+{
+  "name": "room-rental",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "description": "UrbanNest - Modern Room Rental Website with animations"
+}
