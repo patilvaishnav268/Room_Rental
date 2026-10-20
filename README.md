@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🏡 UrbanNest Pune — Modern Room Rental & Flatshare Portal
 
 **UrbanNest Pune** is a room rental web application featuring verified rooms across Pune's top residential and IT hubs. Built with fluid animations, glassmorphic UI, real-time filtering, interactive booking flows, and custom micro-interactions.
@@ -73,3 +74,7 @@
    http://localhost:3000
    ```
    *(Or simply double-click `index.html` in file explorer!)*
+=======
+# Room_Rental
+Hi There! This is my room rental website..
+>>>>>>> e073f9ef7accbd2060ead501f2625ab5b24f2d54
